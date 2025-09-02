@@ -11,19 +11,32 @@ import { IngredienteModule } from './entidades/gestion-menu/ingrediente/ingredie
 import { CategoriaComida } from './entidades/gestion-menu/categoria-comida/categoria-comida.entity';
 import { Plato } from './entidades/gestion-menu/plato/plato.entity';
 import { Ingrediente } from './entidades/gestion-menu/ingrediente/ingrediente.entity';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: 'password', // root
-      database: 'tp_bd',
-      entities: [User, CategoriaComida, Plato, Ingrediente],
-      synchronize: true,
-      logger: 'debug',
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    TypeOrmModule.forRootAsync({
+      imports:[ConfigModule],
+      inject:[ConfigModule],
+      useFactory: (config: ConfigService)=>({
+        type: 'mysql',
+        host:
+          config.get('MYSQLHOST') ||
+          config.get('MYSQL_PUBLIC_URL') ||
+          config.get('MYSQL_URL')?.split(':')[0] ||
+          'localhost',
+        port:
+          parseInt(config.get('MYSQLPORT') || config.get('MYSQL_URL')?.split(':')[1] || '3306', 10),
+        username: config.get('MYSQLUSER') || 'root',
+        password: config.get('MYSQLPASSWORD') || config.get('MYSQL_ROOT_PASSWORD') || '',
+        database: config.get('MYSQLDATABASE') || config.get('MYSQL_DATABASE') || '',
+        entities: [User, CategoriaComida, Plato, Ingrediente],
+        synchronize: process.env.NODE_ENV !== 'production',
+        logging: true,
+      })
     }),
     AuthModule,
     UsersModule,
