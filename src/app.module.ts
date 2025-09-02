@@ -17,10 +17,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+      envFilePath: '.env',
     }),
     TypeOrmModule.forRootAsync({
       imports:[ConfigModule],
-      inject:[ConfigModule],
+      inject:[ConfigService],
       useFactory: (config: ConfigService)=>({
         type: 'mysql',
         host:
