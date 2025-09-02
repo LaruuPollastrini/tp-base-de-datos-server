@@ -3,19 +3,14 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entidades/seguridad/users/users.entity';
-import { Accion } from './entidades/seguridad/acciones/acciones.entity';
-import { Formulario } from './entidades/seguridad/formulario/formulario.entity';
-import { Grupo } from './entidades/seguridad/grupos/grupos.entity';
-import { Modulo } from './entidades/seguridad/modulo/modulo.entity';
-import { Mesa } from './entidades/realizar-pedidos/mesa/mesas.entity';
-import { DetallesPedido } from './entidades/realizar-pedidos/detallePedido/detallespedido.entity';
-import { Pedidos } from './entidades/realizar-pedidos/pedidos/pedidos.entity';
-import { Producto } from './entidades/realizar-pedidos/productos/productos.entity';
-import { Ticket } from './entidades/realizar-pedidos/ticket/tickets.entity';
-import { PedidoModule } from './entidades/realizar-pedidos/pedidos/pedido.module';
-import { TicketModule } from './entidades/realizar-pedidos/ticket/ticket.module';
-import { ProductoModule } from './entidades/realizar-pedidos/productos/productos.module';
-import { MesaModule } from './entidades/realizar-pedidos/mesa/mesa.module';
+import { UsersModule } from './entidades/seguridad/users/users.module';
+import { AuthModule } from './entidades/seguridad/auth/auth.module';
+import { CategoriaComidaModule } from './entidades/gestion-menu/categoria-comida/categoria-comida.module';
+import { PlatoModule } from './entidades/gestion-menu/plato/plato.module';
+import { IngredienteModule } from './entidades/gestion-menu/ingrediente/ingrediente.module';
+import { CategoriaComida } from './entidades/gestion-menu/categoria-comida/categoria-comida.entity';
+import { Plato } from './entidades/gestion-menu/plato/plato.entity';
+import { Ingrediente } from './entidades/gestion-menu/ingrediente/ingrediente.entity';
 
 @Module({
   imports: [
@@ -24,17 +19,17 @@ import { MesaModule } from './entidades/realizar-pedidos/mesa/mesa.module';
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: 'root',
-      database: 'bar_app',
-      entities: [User,Accion,Formulario,Grupo,Modulo,Mesa,DetallesPedido,Pedidos,Producto,Ticket],
+      password: 'password', // root
+      database: 'tp_bd',
+      entities: [User, CategoriaComida, Plato, Ingrediente],
       synchronize: true,
-      logger: "debug"
+      logger: 'debug',
     }),
-    // agregar el modulo que necesite
-    PedidoModule,
-    TicketModule,
-    ProductoModule,
-    MesaModule
+    AuthModule,
+    UsersModule,
+    CategoriaComidaModule,
+    PlatoModule,
+    IngredienteModule,
   ],
   controllers: [AppController],
   providers: [AppService],
