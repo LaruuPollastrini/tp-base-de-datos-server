@@ -21,7 +21,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     }),
     TypeOrmModule.forRootAsync({
       imports:[ConfigModule],
-      inject:[ConfigService],
+      inject:[ConfigServie],
       useFactory: (config: ConfigService)=>({
         type: 'mysql',
         host:
