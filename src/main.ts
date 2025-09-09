@@ -8,8 +8,9 @@ async function bootstrap() {
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true, // allow cookies or authorization headers
   });
-  await app.listen(process.env.PORT ?? 3000);
+  const port = process.env.PORT ?? 3000;
+  await app.listen(port);
 }
 bootstrap()
-  .then(() => console.log('running at port 3000'))
+  .then(() => console.log('running at port' + (process.env.PORT ?? 3000)))
   .catch((error) => console.log(error));
