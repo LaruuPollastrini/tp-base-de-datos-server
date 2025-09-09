@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
 import { Plato } from '../plato/plato.entity';
 
 @Entity('ingredientes')
@@ -12,8 +12,6 @@ export class Ingrediente {
   @Column('float')
   kcal: number;
 
-  @ManyToOne(() => Plato, (plato) => plato.ingredientes, {
-    onDelete: 'CASCADE',
-  })
+  @ManyToMany(() => Plato, (plato) => plato.ingredientes)
   plato: Plato;
 }

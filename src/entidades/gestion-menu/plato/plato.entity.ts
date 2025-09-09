@@ -4,6 +4,8 @@ import {
   Column,
   ManyToOne,
   OneToMany,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 import { CategoriaComida } from '../categoria-comida/categoria-comida.entity';
 import { Ingrediente } from '../ingrediente/ingrediente.entity';
@@ -21,9 +23,14 @@ export class Plato {
   })
   categoria: CategoriaComida;
 
-  @OneToMany(() => Ingrediente, (ingrediente) => ingrediente.plato, {
+  @ManyToMany(() => Ingrediente, (ingrediente) => ingrediente.plato, {
     cascade: true,
     eager: true,
+  })
+  @JoinTable({
+    name: 'platos_ingredientes',
+    joinColumn: { name: 'platoId', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'ingredienteId', referencedColumnName: 'id' },
   })
   ingredientes: Ingrediente[];
 
