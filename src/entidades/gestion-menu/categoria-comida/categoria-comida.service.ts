@@ -29,6 +29,7 @@ export class CategoriaComidaService {
             id: ing.id,
             nombre: ing.nombre,
             kcal: ing.kcal,
+            cantidad: ing.cantidad,
           })),
           kcalTotal: plato.calcularKcalTotal(),
         }),
@@ -46,7 +47,7 @@ export class CategoriaComidaService {
   async findOne(id: number): Promise<CategoriaComidaDTO | null> {
     const categoria = await this.categoriaRepo.findOne({
       where: { id },
-      relations: ['platos', 'platos.ingredientes'],
+      relations: ['platos', 'platos.ingredientes'], //preguntar.
     });
 
     if (!categoria) return null;
@@ -59,6 +60,7 @@ export class CategoriaComidaService {
           id: ing.id,
           nombre: ing.nombre,
           kcal: ing.kcal,
+          cantidad: ing.cantidad,
         })),
         kcalTotal: plato.calcularKcalTotal(),
       }),
@@ -84,6 +86,7 @@ export class CategoriaComidaService {
           id: ing.id,
           nombre: ing.nombre,
           kcal: ing.kcal,
+          cantidad: ing.cantidad,
         })),
         kcalTotal: plato.calcularKcalTotal(),
       }),

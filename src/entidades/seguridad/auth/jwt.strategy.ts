@@ -17,6 +17,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   // Passport will call this automatically after token verification
   async validate(payload: { email: string }) {
     const user = await this.userService.findByEmail(payload.email);
+    console.log(payload, payload.email);
     if (!user) throw new UnauthorizedException();
     return user; // will be available as req.user
   }

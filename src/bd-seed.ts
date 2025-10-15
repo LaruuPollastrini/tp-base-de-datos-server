@@ -39,17 +39,17 @@ async function seed(dataSource: DataSource) {
 
     // 🔹 Ingredientes
     await queryRunner.query(`
-      INSERT INTO ingredientes (id, nombre, kcal) VALUES
-      (1, 'Huevos', 155),
-      (2, 'Aceite de oliva', 120),
-      (3, 'Palta', 160),
-      (4, 'Pan integral', 90),
-      (5, 'Lechuga', 15),
-      (6, 'Pollo', 200),
-      (7, 'Queso parmesano', 110),
-      (8, 'Yogur', 100),
-      (9, 'Frutilla', 30),
-      (10, 'Banana', 89);
+      INSERT INTO ingredientes (id, nombre, kcal, cantidad) VALUES
+      (1, 'Huevos', 155, 2),
+      (2, 'Aceite de oliva', 120, 1),
+      (3, 'Palta', 160, 5),
+      (4, 'Pan integral', 90, 4),
+      (5, 'Lechuga', 15, 5),
+      (6, 'Pollo', 200, 4),
+      (7, 'Queso parmesano', 110, 1),
+      (8, 'Yogur', 100, 2),
+      (9, 'Frutilla', 30, 5),
+      (10, 'Banana', 89, 5);
     `);
 
     // 🔹 Relaciones plato_ingredientes

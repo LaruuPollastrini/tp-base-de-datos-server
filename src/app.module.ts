@@ -12,6 +12,8 @@ import { CategoriaComida } from './entidades/gestion-menu/categoria-comida/categ
 import { Plato } from './entidades/gestion-menu/plato/plato.entity';
 import { Ingrediente } from './entidades/gestion-menu/ingrediente/ingrediente.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { Favorito } from './entidades/gestion-menu/favoritos/favorito.entity';
+import { FavoritosModule } from './entidades/gestion-menu/favoritos/favorito.module';
 
 @Module({
   imports: [
@@ -34,7 +36,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         username: config.get('MYSQLUSER') || 'root',
         password: config.get('MYSQLPASSWORD') || config.get('MYSQL_ROOT_PASSWORD') || '',
         database: config.get('MYSQLDATABASE') || config.get('MYSQL_DATABASE') || '',
-        entities: [User, CategoriaComida, Plato, Ingrediente],
+        entities: [User, CategoriaComida, Plato, Ingrediente, Favorito],
         synchronize: process.env.NODE_ENV !== 'production',
         logging: true,
       })
@@ -43,6 +45,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     UsersModule,
     CategoriaComidaModule,
     PlatoModule,
+    FavoritosModule,
     IngredienteModule,
   ],
   controllers: [AppController],

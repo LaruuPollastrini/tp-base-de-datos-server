@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 import { CategoriaComida } from '../categoria-comida/categoria-comida.entity';
 import { Ingrediente } from '../ingrediente/ingrediente.entity';
+import { Favorito } from '../favoritos/favorito.entity';
 
 @Entity('platos')
 export class Plato {
@@ -27,12 +28,16 @@ export class Plato {
     cascade: true,
     eager: true,
   })
+
   @JoinTable({
     name: 'platos_ingredientes',
     joinColumn: { name: 'platoId', referencedColumnName: 'id' },
     inverseJoinColumn: { name: 'ingredienteId', referencedColumnName: 'id' },
   })
   ingredientes: Ingrediente[];
+
+  @OneToMany(() => Favorito, (favorito) => favorito.plato)
+  favoritos: Favorito[];
 
   // Método para calcular calorías totales del plato
   calcularKcalTotal(): number {
